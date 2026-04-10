@@ -13,6 +13,7 @@ export const getUser = async (req: Request, res: Response): Promise<void> => {
       await redisClient.setEx(cacheKey, 3600, JSON.stringify(userData)); // 1 hour
       console.log(`[Cache Saved] New data saved to Redis: ${cacheKey}`);
     }
+    res.status(200).json(userData);
   } catch (error) {
     console.error("Error fetching user:", error);
     res.status(500).json({ error: "Failed to fetch user" });
