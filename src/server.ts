@@ -14,6 +14,12 @@ app.get("/health", (req: Request, res: Response) => {
     .json({ status: "Redis API Caching Gateway is running smoothly.." });
 });
 
+app.get("/", (req: Request, res: Response) => {
+  res
+    .status(200)
+    .json({ message: "Welcome to the Redis API Caching Gateway!" });
+});
+
 const startServer = async () => {
   try {
     await redisClient.connect();
