@@ -1,6 +1,11 @@
 import express, { Request, Response, Application } from "express";
 import redisClient from "./config/redisClient.js";
 import mainRouter from "./routes/index.js";
+import swaggerUi from "swagger-ui-express";
+import { createRequire } from "module";
+
+const require = createRequire(import.meta.url);
+const swaggerDocument = require("../swagger-output.json");
 
 const app: Application = express();
 const PORT = 5000;
@@ -19,6 +24,8 @@ app.get("/", (req: Request, res: Response) => {
     .status(200)
     .json({ message: "Welcome to the Redis API Caching Gateway!" });
 });
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const startServer = async () => {
   try {
