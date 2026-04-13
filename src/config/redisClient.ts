@@ -4,6 +4,10 @@ dotenv.config({ quiet: true });
 
 const redisClient = createClient({
   url: String(process.env.REDIS_URL),
+  socket: {
+    tls: true,
+    rejectUnauthorized: false,
+  },
 });
 
 redisClient.on("error", (err) => console.error("Redis Client Error", err));
